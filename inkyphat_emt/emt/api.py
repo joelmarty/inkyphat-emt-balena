@@ -1,13 +1,12 @@
 """client functions"""
 
 from datetime import datetime
-from typing import TypedDict, List
 
 import requests
-
 from pytz import timezone
 from requests.auth import AuthBase
 
+from inkyphat_emt.domain.model import ArrivalInfo
 
 API_TZ = timezone('Europe/Madrid')
 _BASE_URL = 'https://openapi.emtmadrid.es/v1'
@@ -44,19 +43,6 @@ def _default_headers():
     return {
         'Content-Type': 'application/json'
     }
-
-
-class Arrival(TypedDict):
-    line: str
-    stop: str
-    destination: str
-    arrives_in: int
-    distance: int
-
-
-class ArrivalInfo(TypedDict):
-    arrivals: List[Arrival]
-    incident: bool
 
 
 class EMTClient:
