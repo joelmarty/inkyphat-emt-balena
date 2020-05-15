@@ -1,6 +1,6 @@
 import os
 
-from unittest import TestCase
+from unittest import TestCase, skipIf
 from inkyphat_emt.emt import api
 from dotenv import load_dotenv, find_dotenv
 import logging
@@ -23,6 +23,7 @@ def httpclient_logging_patch(level=logging.DEBUG):
     http.client.HTTPConnection.debuglevel = 1
 
 
+@skipIf(find_dotenv('local.env') == '', reason='api credentials not found')
 class TestEMTClient(TestCase):
 
     @classmethod
