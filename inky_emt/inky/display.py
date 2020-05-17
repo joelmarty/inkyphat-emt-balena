@@ -4,6 +4,8 @@ from unidecode import unidecode
 
 from inky_emt.domain.model import ArrivalInfo
 
+TITLE_SIZE = 20
+
 
 class ArrivalDisplay:
 
@@ -43,7 +45,7 @@ class ArrivalDisplay:
 
     def _init_fonts(self):
         self._font = ImageFont.truetype(ConnectionIII,
-                                        int(22 * self._scale_size))
+                                        int(TITLE_SIZE * self._scale_size))
 
     def _draw_title(self, title: str, incident: bool):
         title_w, title_h = self._font.getsize(title)
