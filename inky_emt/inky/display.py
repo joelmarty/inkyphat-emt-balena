@@ -1,10 +1,13 @@
 from PIL import Image, ImageFont, ImageDraw
+from PIL.ImageFont import FreeTypeFont
 from font_connection_iii import ConnectionIII
 from unidecode import unidecode
 
-from inky_emt.model.model import ArrivalInfo
+from inky_emt.model import ArrivalInfo, Arrival
+from typing import List
 
-TITLE_SIZE = 20
+INCIDENT_MARK = '*'
+MAX_TITLE_SIZE = 20
 
 
 class ArrivalDisplay:
@@ -12,7 +15,6 @@ class ArrivalDisplay:
     def __init__(self, display_type: str, color: str, mock=False):
         self._init_display(color, mock, display_type)
         self._init_canvas()
-        self._init_fonts()
         self._draw_background()
 
     def _init_display(self, color, mock, type):
@@ -25,7 +27,7 @@ class ArrivalDisplay:
         if type == 'phat':
             self._display = InkyPHAT(color)
             self._scale_size = 1.0
-            self._padding = 0
+            self._padding = 2
         elif type == 'what':
             self._display = InkyWHAT(color)
             self._scale_size = 2.20
@@ -43,35 +45,41 @@ class ArrivalDisplay:
             for x in range(0, self._display.width):
                 self._img.putpixel((x, y), self._display.BLACK)
 
-    def _init_fonts(self):
-        self._font = ImageFont.truetype(ConnectionIII,
-                                        int(TITLE_SIZE * self._scale_size))
+    def _adjust_font_size(self, text) -> FreeTypeFont:
+        font_size = MAX_TITLE_SIZE
+        while True:
+            font = ImageFont.truetype(ConnectionIII,
+                                      int(font_size * self._scale_size))
+            title_w, title_h = font.getsize(text)
+            if title_w + self._padding > self._display.WIDTH:
+                font_size -= 1
+            else:
+                return font
 
     def _draw_title(self, title: str, incident: bool):
-        title_w, title_h = self._font.getsize(title)
+        title_font = self._adjust_font_size(title)
+        title_w, title_h = title_font.getsize(title)
         title_x = int((self._display.WIDTH - title_w) / 2)
         title_y = 0 + self._padding
         self._draw.text((title_x, title_y), title, self._display.YELLOW,
-                        font=self._font)
+                        font=title_font)
         if incident:
-            mark_w, mark_h = self._font.getsize('!')
+            mark_w, mark_h = title_font.getsize(INCIDENT_MARK)
             mark_x = self._display.WIDTH - mark_w - self._padding
             mark_y = 0 + self._padding
-            self._draw.text((mark_x, mark_y), '!', self._display.YELLOW,
-                            font=self._font)
+            self._draw.text((mark_x, mark_y), INCIDENT_MARK,
+                            self._display.YELLOW,
+                            font=title_font)
 
-    def set_title(self, line: str, destination: str, incident: bool):
-        normalized_dest = unidecode(destination)
-        title = line + " " + normalized_dest
-        self._draw_title(title, incident)
-
-    def set_arrivals(self, arrivals: ArrivalInfo):
+    def _draw_arrivals(self, arrivals: List[Arrival]):
         pass
 
-    def refresh(self):
+    def show_arrivals(self, arrivals: ArrivalInfo):
+        self._init_canvas()
+        self._draw_background()
+        self._draw_title(unidecode(arrivals['stop_name']), arrivals['incident'])
         self._display.set_image(self._img)
         self._display.show()
-        self._init_canvas()
 
     def wait_for_window_close(self):
         self._display.wait_for_window_close()
