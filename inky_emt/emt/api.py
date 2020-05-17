@@ -6,7 +6,7 @@ import requests
 from pytz import timezone
 from requests.auth import AuthBase
 
-from inky_emt.domain.model import ArrivalInfo
+from inky_emt.model import ArrivalInfo
 
 API_TZ = timezone('Europe/Madrid')
 _BASE_URL = 'https://openapi.emtmadrid.es/v1'

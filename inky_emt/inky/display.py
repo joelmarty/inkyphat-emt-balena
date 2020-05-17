@@ -2,7 +2,7 @@ from PIL import Image, ImageFont, ImageDraw
 from font_connection_iii import ConnectionIII
 from unidecode import unidecode
 
-from inky_emt.domain.model import ArrivalInfo
+from inky_emt.model.model import ArrivalInfo
 
 TITLE_SIZE = 20
 
