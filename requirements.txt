@@ -1,4 +1,7 @@
-inky==0.0.5
-requests>=2.23.0,<2.24.0
+requests==2.23.0
 pytz==2020.1
-python-dotenv>=0.13.0
+python-dotenv==0.13.0
+Pillow==7.1.2,<8.0.0
+Unidecode==1.1.1
+git+https://github.com/pimoroni/fonts-python.git@630771ff5d20c3f6c5763e7ce0e52b68258498be#egg=font-connection&subdirectory=font-connection
+git+https://github.com/pimoroni/inky.git@65f9abb7cb09e2a9d9b31e484a576d230d8c28a1#egg=inky&subdirectory=library
