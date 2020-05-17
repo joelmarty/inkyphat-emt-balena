@@ -10,5 +10,6 @@ class Arrival(TypedDict):
 
 
 class ArrivalInfo(TypedDict):
+    stop_name: str
     arrivals: List[Arrival]
     incident: bool

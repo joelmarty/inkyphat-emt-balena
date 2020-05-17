@@ -114,6 +114,7 @@ class EMTClient:
         _validate_response(response)
 
         arrival_info = response.json()['data'][0]
+        stop_name = arrival_info['StopInfo'][0]['Description']
         arrival_times = [{
             'line': item['line'],
             'stop': item['stop'],
@@ -123,6 +124,7 @@ class EMTClient:
         } for item in arrival_info['Arrive']]
         incident = arrival_info['Incident']['ListaIncident']['data'] != []
         return {
+            'stop_name': stop_name,
             'arrivals': arrival_times,
             'incident': incident
         }
