@@ -7,6 +7,7 @@ COPY pip.conf /etc/
 
 # required for Pillow and inky requiring numpy
 RUN install_packages \
+  libfreetype6-dev \
   libatlas3-base \
   libgfortran3 \
   libzstd1 \
