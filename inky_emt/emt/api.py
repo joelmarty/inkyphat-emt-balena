@@ -90,9 +90,9 @@ class EMTClient:
 
         return True
 
-    def get_arrival_times(self, stop, line=None) -> ArrivalInfo:
+    def get_arrival_times(self, stop: str, line: str = None) -> ArrivalInfo:
         """
-        Return a dictionary of arrival lines for the specified stop (mandatory).
+        Return an  ArrivalInfo object for the specified stop (mandatory).
         If line is specified, will only return arrival times for that line.
         :param stop: The stop number.
         :param line: The line id.
