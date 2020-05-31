@@ -10,7 +10,7 @@ class Arrival:
     arrives_in: int
     distance: int
 
-    def fmt_arrival(self):
+    def fmt_arrival(self) -> str:
         if self.arrives_in == 99999:
             return '45mn+'
         if self.arrives_in < 60:
