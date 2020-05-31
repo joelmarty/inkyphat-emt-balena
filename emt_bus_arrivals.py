@@ -3,7 +3,7 @@ import signal
 import configargparse
 
 from app import EMTApp, Configuration
-from inky.display import ArrivalDisplay
+from display.inky import ArrivalDisplay
 from emt.api import EMTClient
 
 parser = configargparse.ArgParser()

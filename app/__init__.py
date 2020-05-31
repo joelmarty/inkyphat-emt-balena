@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from threading import Thread
 
 from emt.api import EMTClient
-from inky.display import ArrivalDisplay
+from display.inky import ArrivalDisplay
 
 
 @dataclass
