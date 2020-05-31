@@ -6,7 +6,7 @@ import requests
 from pytz import timezone
 from requests.auth import AuthBase
 
-from inky_emt.model import ArrivalInfo
+from inky_emt.model import Arrival, ArrivalInfo
 
 API_TZ = timezone('Europe/Madrid')
 _BASE_URL = 'https://openapi.emtmadrid.es/v1'
@@ -115,19 +115,17 @@ class EMTClient:
 
         arrival_info = response.json()['data'][0]
         stop_name = arrival_info['StopInfo'][0]['Description']
-        arrival_times = [{
-            'line': item['line'],
-            'stop': item['stop'],
-            'destination': item['destination'],
-            'arrives_in': item['estimateArrive'],
-            'distance': item['DistanceBus']
-        } for item in arrival_info['Arrive']]
+        arrival_times = [Arrival(
+            line=item['line'],
+            stop=item['stop'],
+            destination=item['destination'],
+            arrives_in=item['estimateArrive'],
+            distance=item['DistanceBus']
+        ) for item in arrival_info['Arrive']]
         incident = arrival_info['Incident']['ListaIncident']['data'] != []
-        return {
-            'stop_name': stop_name,
-            'arrivals': arrival_times,
-            'incident': incident
-        }
+        return ArrivalInfo(stop_name=stop_name,
+                           arrivals=arrival_times,
+                           incident=incident)
 
 
 class EmtAuth(AuthBase):
