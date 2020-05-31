@@ -2,9 +2,9 @@ import signal
 
 import configargparse
 
-from inky_emt.app import EMTApp, Configuration
-from inky_emt.inky.display import ArrivalDisplay
-from inky_emt.emt.api import EMTClient
+from app import EMTApp, Configuration
+from inky.display import ArrivalDisplay
+from emt.api import EMTClient
 
 parser = configargparse.ArgParser()
 parser.add_argument('--mock', '-m',

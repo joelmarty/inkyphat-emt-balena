@@ -5,7 +5,7 @@ from PIL.ImageFont import FreeTypeFont
 from font_connection_iii import ConnectionIII
 from unidecode import unidecode
 
-from inky_emt.model import ArrivalInfo, Arrival
+from model import ArrivalInfo, Arrival
 
 INCIDENT_MARK = '*'
 MAX_TITLE_SIZE = 20

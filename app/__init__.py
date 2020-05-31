@@ -2,8 +2,8 @@ import time
 from dataclasses import dataclass
 from threading import Thread
 
-from inky_emt.emt.api import EMTClient
-from inky_emt.inky.display import ArrivalDisplay
+from emt.api import EMTClient
+from inky.display import ArrivalDisplay
 
 
 @dataclass

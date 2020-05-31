@@ -1,7 +1,7 @@
 import os
 
 from unittest import TestCase, skipIf
-from inky_emt.emt import api
+from emt import api
 from dotenv import load_dotenv, find_dotenv
 import logging
 import http.client
